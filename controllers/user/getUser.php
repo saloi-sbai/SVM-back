@@ -11,7 +11,6 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
     header("Content-Type: application/json; charset=UTF-8");
     header('Access-Control-Max-Age: 86400');    // cache for 1 day
 }
-
 // Access-Control headers are received during OPTIONS requests
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
@@ -36,31 +35,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = hash('md5', $salt . htmlentities($donnees->password));
     $username = $donnees->username;
 
-    $user->username = $username;
+    $user->nom = $username;
     $user->password = $password;
 
-    // on vérifie que l'utilisateur n'existe pas déja
-    $present = $user->getUser()->fetchAll();
+    $resultats = $user->getUser();
 
-    if (count($present)>0){
-        http_response_code(503);
-        echo json_encode(["message" =>"Cet utilisateur existe déja dans la base", "code" =>503], JSON_UNESCAPED_UNICODE);
-        die();
-    }
-
-    if ($user->addUser()) {
-        http_response_code(201);
-        echo json_encode(["message" =>
-        "L'ajout a été effectué", "code" => 201], JSON_UNESCAPED_UNICODE);
+    if ($resultats->rowCount() > 0) {
+        $data = [];
+        $data = $resultats->fetchAll();
+        echo json_encode($data);
     } else {
-        // ici la création n'a pas fonctionné
-        // on envoie un code 503
-        http_response_code(503);
-        echo json_encode(["message" =>
-        "L'ajout n'a pas été effectué", "code" => 503], JSON_UNESCAPED_UNICODE);
+        http_response_code(401);
+        echo json_encode(["message" => "le username ou le mot de passe est incorrect", "code" => 401], JSON_UNESCAPED_UNICODE);
     }
 } else {
-    http_response_code(405); // TODO: revoir les codes erreurs
-    echo json_encode(["message" =>
-    "methode not Allowed", "code" => 405], JSON_UNESCAPED_UNICODE);
+    http_response_code(405); // il faut revoir les codes erreurs
+    echo json_encode(["message" => "methode not Allowed", "code" => 405], JSON_UNESCAPED_UNICODE);
 }

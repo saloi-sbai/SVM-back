@@ -25,9 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         echo json_encode($data);
     } else {
         http_response_code(404); // TODO: revoir les codes erreurs
-        echo json_encode(["message" => "Aucune données"]);
+        echo json_encode(["message" =>
+        "Aucune données", "code" => 404], JSON_UNESCAPED_UNICODE);
     }
 } else {
     http_response_code(405); // TODO: revoir les codes erreurs
-    echo json_encode(["message" => "methode not ALLowed"]);
+    echo json_encode(["message" =>
+    "methode not ALLowed", "code" => 405], JSON_UNESCAPED_UNICODE);
 }
