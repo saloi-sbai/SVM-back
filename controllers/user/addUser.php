@@ -55,12 +55,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         // ici la création n'a pas fonctionné
         // on envoie un code 503
-        http_response_code(503);
+        http_response_code(503); // service non disponible
         echo json_encode(["message" =>
         "L'ajout n'a pas été effectué", "code" => 503], JSON_UNESCAPED_UNICODE);
     }
 } else {
-    http_response_code(405); // TODO: revoir les codes erreurs
+    http_response_code(405); // methode non-autorisé
     echo json_encode(["message" =>
-    "methode not Allowed", "code" => 405], JSON_UNESCAPED_UNICODE);
+    "methode non authaurisée", "code" => 405], JSON_UNESCAPED_UNICODE);
 }

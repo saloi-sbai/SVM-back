@@ -45,10 +45,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = $resultats->fetchAll();
         echo json_encode($data);
     } else {
-        http_response_code(401);
+        http_response_code(401); // non-autorisé
         echo json_encode(["message" => "le username ou le mot de passe est incorrect", "code" => 401], JSON_UNESCAPED_UNICODE);
     }
 } else {
-    http_response_code(405); // il faut revoir les codes erreurs
-    echo json_encode(["message" => "methode not Allowed", "code" => 405], JSON_UNESCAPED_UNICODE);
+    http_response_code(405); // methode non-autorisé
+    echo json_encode(["message" => "methode non authaurisée", "code" => 405], JSON_UNESCAPED_UNICODE);
 }

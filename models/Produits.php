@@ -25,40 +25,4 @@ class Produits
         return $this->connexion->query($requete);
     }
 
-    public function addProducts()
-    {
-        $requete = "INSERT INTO $this->table(`nom`, `prix`, `description`, `img`, `categorie`) VALUES (:nom,:prix,:description,:img,:categorie)";
-        $sql = $this->connexion->prepare($requete);
-        $resultat = $sql->execute([
-            ":nom" => $this->nom,
-            ":prix" => $this->prix,
-            ":description" => $this->description,
-            ":img" => $this->img,
-            ":categorie" => $this->categorie
-        ]);
-
-        // on recuperd le resultat de la requete
-        if ($resultat) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function deleteProducts()
-    {
-        $requete = "DELETE FROM $this->table WHERE id = :id";
-        $sql = $this->connexion->prepare($requete);
-        $resultat = $sql->execute([
-            ":id" => $this->id
-        ]);
-
-        // on recupere le resultat de la requete
-
-        if ($resultat) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 }
