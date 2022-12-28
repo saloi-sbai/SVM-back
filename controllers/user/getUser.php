@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $donnees = json_decode(file_get_contents("php://input"));
 
     $password = hash('md5', $salt . htmlentities($donnees->password));
-    $username = $donnees->username;
+    $username = htmlentities($donnees->username);
 
     $user->nom = $username;
     $user->password = $password;

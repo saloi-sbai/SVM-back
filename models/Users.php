@@ -21,11 +21,11 @@ class User
         $sql = $this->connexion->prepare($requete);
 
         // protection contre les injections sql
-        $this->username = htmlspecialchars(strip_tags($this->username));
+        $this->nom = htmlspecialchars(strip_tags($this->nom));
         $this->password = htmlspecialchars(strip_tags($this->password));
 
         $resultat = $sql->execute([
-            "username" => $this->username,
+            "username" => $this->nom,
             "password" => $this->password
         ]);
 

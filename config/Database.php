@@ -19,9 +19,9 @@ class Database
                 $this->username,
                 $this->password,
                 [
-                    // TODO: c'est quoi?
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+                    
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // atribut errmode c'est pour gérer les erreures
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC // le resulta de fetch va etre un tableau associatif clé valeur les clés represente les noms de colonnes 
                 ]
             );
         } catch (PDOException $e) {
